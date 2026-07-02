@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>28 Months With You</title>
+  <style>
+    :root {
+      --ink: #2f2728;
+      --muted: #776a6d;
+      --paper: #fff9f5;
+      --blush: #ffd8dd;
+      --rose: #e94f6d;
+      --berry: #8f2f56;
+      --mint: #bce6da;
+      --sun: #ffd36b;
+      --sky: #a9d8ff;
+      --shadow: 0 22px 70px rgba(95, 45, 59, 0.18);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 12% 18%, rgba(255, 211, 107, 0.38), transparent 30%),
+        radial-gradient(circle at 86% 8%, rgba(169, 216, 255, 0.45), transparent 28%),
+        linear-gradient(135deg, #fff8f3 0%, #ffe2e8 48%, #edf9f5 100%);
+      overflow-x: hidden;
+    }
+
+    button,
+    input {
+      font: inherit;
+    }
+
+    button {
+      border: 0;
+      cursor: pointer;
+    }
+
+    .page {
+      width: min(1160px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 14px max(16px, calc((100vw - 1160px) / 2));
+      background: rgba(255, 249, 245, 0.78);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid rgba(143, 47, 86, 0.11);
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      color: var(--berry);
+      font-weight: 800;
+      letter-spacing: 0;
+      white-space: nowrap;
+    }
+
+    .heart-dot {
+      display: grid;
+      place-items: center;
+      width: 34px;
+      height: 34px;
+      color: white;
+      background: var(--rose);
+      border-radius: 50%;
+      box-shadow: 0 10px 24px rgba(233, 79, 109, 0.28);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .nav-links a,
+    .soft-btn {
+      min-height: 40px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      color: var(--berry);
+      background: rgba(255, 255, 255, 0.68);
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.9rem;
+      box-shadow: 0 8px 26px rgba(95, 45, 59, 0.08);
+    }
+
+    .hero {
+      min-height: calc(100vh - 68px);
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(320px, 0.92fr);
+      align-items: center;
+      gap: clamp(28px, 5vw, 74px);
+      padding: clamp(28px, 6vw, 72px) 0 56px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin: 0 0 16px;
+      padding: 8px 12px;
+      border: 1px solid rgba(143, 47, 86, 0.16);
+      border-radius: 999px;
+      color: var(--berry);
+      background: rgba(255, 255, 255, 0.55);
+      font-size: 0.92rem;
+      font-weight: 800;
+    }
+
+    h1 {
+      max-width: 720px;
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(3.1rem, 8vw, 7.7rem);
+      line-height: 0.9;
+      letter-spacing: 0;
+      color: #251d1f;
+    }
+
+    .hero-copy {
+      max-width: 620px;
+      margin: 22px 0 0;
+      color: #5f4e52;
+      font-size: clamp(1.02rem, 2vw, 1.22rem);
+      line-height: 1.7;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 30px;
+    }
+
+    .primary-btn,
+    .ghost-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 48px;
+      padding: 13px 18px;
+      border-radius: 999px;
+      font-weight: 850;
+      text-decoration: none;
+      transition: transform 180ms ease, box-shadow 180ms ease;
+    }
+
+    .primary-btn {
+      color: white;
+      background: linear-gradient(135deg, var(--rose), var(--berry));
+      box-shadow: 0 16px 34px rgba(143, 47, 86, 0.26);
+    }
+
+    .ghost-btn {
+      color: var(--berry);
+      background: rgba(255, 255, 255, 0.66);
+      box-shadow: 0 12px 30px rgba(95, 45, 59, 0.1);
+    }
+
+    .primary-btn:hover,
+    .ghost-btn:hover,
+    .soft-btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .photo-stack {
+      position: relative;
+      min-height: 580px;
+    }
+
+    .polaroid {
+      position: absolute;
+      width: min(74%, 360px);
+      padding: 12px 12px 54px;
+      border-radius: 7px;
+      background: #fffdf9;
+      box-shadow: var(--shadow);
+      transform-origin: center;
+      transition: transform 220ms ease;
+    }
+
+    .polaroid:hover {
+      transform: rotate(0deg) translateY(-8px) scale(1.02);
+      z-index: 5;
+    }
+
+    .polaroid img,
+    .placeholder-photo {
+      width: 100%;
+      aspect-ratio: 4 / 5;
+      display: grid;
+      place-items: center;
+      object-fit: cover;
+      border-radius: 5px;
+      background:
+        linear-gradient(135deg, rgba(255, 216, 221, 0.9), rgba(188, 230, 218, 0.82)),
+        repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.35) 0 8px, transparent 8px 16px);
+      color: var(--berry);
+      text-align: center;
+      font-weight: 900;
+      line-height: 1.35;
+      padding: 20px;
+    }
+
+    .polaroid span {
+      position: absolute;
+      left: 18px;
+      right: 18px;
+      bottom: 16px;
+      text-align: center;
+      color: #7b5c63;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.06rem;
+    }
+
+    .p1 {
+      top: 10px;
+      left: 8%;
+      transform: rotate(-7deg);
+    }
+
+    .p2 {
+      top: 140px;
+      right: 0;
+      transform: rotate(8deg);
+    }
+
+    .p3 {
+      bottom: 20px;
+      left: 18%;
+      transform: rotate(-2deg);
+    }
+
+    section {
+      padding: clamp(46px, 7vw, 92px) 0;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 24px;
+    }
+
+    h2 {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(2rem, 5vw, 4rem);
+      letter-spacing: 0;
+    }
+
+    .section-head p {
+      max-width: 390px;
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .counter-grid,
+    .game-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .counter-tile,
+    .panel,
+    .memory-card {
+      border: 1px solid rgba(143, 47, 86, 0.12);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.68);
+      box-shadow: 0 16px 42px rgba(95, 45, 59, 0.1);
+    }
+
+    .counter-tile {
+      min-height: 130px;
+      padding: 22px;
+    }
+
+    .counter-tile strong {
+      display: block;
+      color: var(--berry);
+      font-size: clamp(2.15rem, 5vw, 4rem);
+      line-height: 1;
+    }
+
+    .counter-tile span {
+      display: block;
+      margin-top: 10px;
+      color: var(--muted);
+      font-weight: 800;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      grid-auto-rows: 150px;
+      gap: 12px;
+    }
+
+    .gallery-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: 8px;
+      background: white;
+      box-shadow: 0 16px 36px rgba(95, 45, 59, 0.13);
+    }
+
+    .gallery-item:nth-child(1),
+    .gallery-item:nth-child(4) {
+      grid-column: span 3;
+      grid-row: span 2;
+    }
+
+    .gallery-item:nth-child(2),
+    .gallery-item:nth-child(3),
+    .gallery-item:nth-child(5),
+    .gallery-item:nth-child(6) {
+      grid-column: span 3;
+    }
+
+    .gallery-item img,
+    .gallery-item .placeholder-photo {
+      width: 100%;
+      height: 100%;
+      aspect-ratio: auto;
+      object-fit: cover;
+      border-radius: 0;
+    }
+
+    .gallery-item label {
+      position: absolute;
+      left: 10px;
+      right: 10px;
+      bottom: 10px;
+      padding: 8px 10px;
+      border-radius: 999px;
+      color: #3c252d;
+      background: rgba(255, 255, 255, 0.76);
+      font-weight: 850;
+      text-align: center;
+      backdrop-filter: blur(10px);
+    }
+
+    .panel {
+      padding: clamp(18px, 3vw, 28px);
+    }
+
+    .panel h3 {
+      margin: 0 0 12px;
+      font-size: 1.35rem;
+      color: #3c252d;
+    }
+
+    .memory-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .memory-stats {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      color: var(--muted);
+      font-weight: 800;
+    }
+
+    .memory-board {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(64px, 1fr));
+      gap: 10px;
+    }
+
+    .memory-card {
+      position: relative;
+      min-height: 96px;
+      padding: 0;
+      color: var(--berry);
+      background: #fffdf9;
+      transform-style: preserve-3d;
+      transition: transform 260ms ease;
+    }
+
+    .memory-card.flipped,
+    .memory-card.matched {
+      transform: rotateY(180deg);
+    }
+
+    .memory-face {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      padding: 10px;
+      border-radius: inherit;
+      backface-visibility: hidden;
+      text-align: center;
+      font-weight: 900;
+    }
+
+    .memory-front {
+      color: white;
+      background: linear-gradient(135deg, var(--rose), var(--berry));
+      font-size: 1.7rem;
+    }
+
+    .memory-back {
+      transform: rotateY(180deg);
+      background: linear-gradient(135deg, rgba(255, 211, 107, 0.62), rgba(188, 230, 218, 0.72));
+      font-size: 0.92rem;
+      line-height: 1.25;
+    }
+
+    .footer-note {
+      margin: 0;
+      padding: 34px 0 48px;
+      color: var(--muted);
+      text-align: center;
+      line-height: 1.7;
+    }
+
+    .float-heart {
+      position: fixed;
+      left: var(--x);
+      bottom: -30px;
+      z-index: 1;
+      color: rgba(233, 79, 109, 0.45);
+      font-size: var(--size);
+      pointer-events: none;
+      animation: rise var(--dur) linear forwards;
+    }
+
+    @keyframes rise {
+      to {
+        transform: translateY(-110vh) rotate(36deg);
+        opacity: 0;
+      }
+    }
+
+    @media (max-width: 860px) {
+      .nav {
+        align-items: center;
+        flex-direction: row;
+        gap: 10px;
+        padding: 10px 12px;
+      }
+
+      .nav-links {
+        justify-content: flex-end;
+      }
+
+      .hero {
+        grid-template-columns: 1fr;
+        min-height: auto;
+      }
+
+      .photo-stack {
+        min-height: 500px;
+      }
+
+      .counter-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .section-head {
+        align-items: start;
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .page {
+        width: min(100% - 24px, 1160px);
+      }
+
+      .nav {
+        position: static;
+        align-items: stretch;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .brand {
+        justify-content: center;
+        font-size: 0.94rem;
+      }
+
+      .heart-dot {
+        width: 30px;
+        height: 30px;
+      }
+
+      .nav-links {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 6px;
+        width: 100%;
+      }
+
+      .nav-links a {
+        display: grid;
+        place-items: center;
+        min-height: 36px;
+        padding: 8px 6px;
+        font-size: 0.8rem;
+        box-shadow: none;
+      }
+
+      .hero {
+        gap: 22px;
+        padding: 28px 0 26px;
+      }
+
+      .eyebrow {
+        max-width: 100%;
+        white-space: normal;
+        font-size: 0.82rem;
+        line-height: 1.35;
+      }
+
+      h1 {
+        font-size: clamp(2.72rem, 16vw, 4.15rem);
+        line-height: 0.96;
+      }
+
+      h2 {
+        font-size: clamp(2rem, 11vw, 2.8rem);
+      }
+
+      .hero-copy {
+        margin-top: 16px;
+        font-size: 0.98rem;
+        line-height: 1.58;
+      }
+
+      .hero-actions {
+        display: grid;
+        gap: 10px;
+        margin-top: 22px;
+      }
+
+      .primary-btn,
+      .ghost-btn {
+        width: 100%;
+        min-height: 46px;
+        padding: 12px 14px;
+      }
+
+      .photo-stack {
+        display: grid;
+        grid-auto-flow: column;
+        grid-auto-columns: minmax(210px, 78%);
+        gap: 12px;
+        min-height: 0;
+        margin-inline: -12px;
+        padding: 6px 12px 18px;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        scrollbar-width: none;
+      }
+
+      .photo-stack::-webkit-scrollbar {
+        display: none;
+      }
+
+      .polaroid {
+        position: relative;
+        inset: auto;
+        width: 100%;
+        min-width: 0;
+        padding: 9px 9px 38px;
+        scroll-snap-align: center;
+        transform: none;
+      }
+
+      .polaroid:hover {
+        transform: translateY(-4px);
+      }
+
+      .polaroid span {
+        left: 12px;
+        right: 12px;
+        bottom: 12px;
+        font-size: 0.94rem;
+      }
+
+      .placeholder-photo {
+        min-height: 250px;
+        padding: 14px;
+      }
+
+      .counter-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+
+      .counter-tile {
+        min-height: auto;
+        padding: 18px;
+      }
+
+      section {
+        padding: 38px 0;
+      }
+
+      .section-head {
+        gap: 10px;
+        margin-bottom: 18px;
+      }
+
+      .gallery {
+        grid-template-columns: 1fr;
+        grid-auto-rows: minmax(220px, 68vw);
+        gap: 10px;
+      }
+
+      .gallery-item:nth-child(n) {
+        grid-column: span 1;
+        grid-row: span 1;
+      }
+
+      .memory-board {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+      }
+
+      .memory-card {
+        min-height: 78px;
+      }
+
+      .memory-top {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      .memory-stats {
+        justify-content: space-between;
+      }
+
+      .soft-btn {
+        width: 100%;
+        min-height: 42px;
+      }
+
+      .memory-back {
+        font-size: 0.84rem;
+      }
+
+      .footer-note {
+        padding: 18px 4px 34px;
+        font-size: 0.94rem;
+      }
+    }
+
+    @media (max-width: 380px) {
+      .page {
+        width: min(100% - 18px, 1160px);
+      }
+
+      h1 {
+        font-size: clamp(2.45rem, 15vw, 3.35rem);
+      }
+
+      .photo-stack {
+        grid-auto-columns: 84%;
+      }
+
+      .placeholder-photo {
+        min-height: 220px;
+        font-size: 0.88rem;
+      }
+
+      .gallery {
+        grid-auto-rows: 210px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav" aria-label="Page sections">
+    <div class="brand"><span class="heart-dot">♥</span> 28 months</div>
+    <div class="nav-links">
+      <a href="#story">Story</a>
+      <a href="#gallery">Photos</a>
+      <a href="#games">Game</a>
+    </div>
+  </nav>
+
+  <main class="page">
+    <section class="hero" id="top">
+      <div>
+        <p class="eyebrow">2 years + 4 months, and still choosing you</p>
+        <h1>Happy anniversary, my love.</h1>
+        <p class="hero-copy">
+            This website is made for us to see some old memories back bubu mwahhhh <3
+        </p>
+        <div class="hero-actions">
+          <a class="primary-btn" href="#games">Play the memory game</a>
+          <a class="ghost-btn" href="#gallery">See our memories</a>
+        </div>
+      </div>
+
+      <div class="photo-stack" aria-label="Photo placeholders for your pictures">
+        <figure class="polaroid p1">
+          <div class="placeholder-photo" data-photo="photo1.JPG">Put photo1.JPG<br>beside this file</div>
+          <span>our soft beginning</span>
+        </figure>
+        <figure class="polaroid p2">
+          <div class="placeholder-photo" data-photo="photo2.JPG">Put photo2.JPG<br>beside this file</div>
+          <span>favorite smile</span>
+        </figure>
+        <figure class="polaroid p3">
+          <div class="placeholder-photo" data-photo="photo3.JPG">Put photo3.JPG<br>beside this file</div>
+          <span>still my person</span>
+        </figure>
+      </div>
+    </section>
+    <section id="story">
+      <div class="section-head">
+        <h2>Our little count</h2>
+        <p>Twenty-eight months is a lot of days, smiles, messages, hugs, and moments that somehow became home.</p>
+      </div>
+
+      <div class="counter-grid">
+        <div class="counter-tile">
+          <strong>2</strong>
+          <span>beautiful years</span>
+        </div>
+        <div class="counter-tile">
+          <strong>4</strong>
+          <span>extra sweet months</span>
+        </div>
+        <div class="counter-tile">
+          <strong>28</strong>
+          <span>months of us</span>
+        </div>
+        <div class="counter-tile">
+          <strong>∞</strong>
+          <span>more memories coming</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="gallery">
+      <div class="section-head">
+        <h2>Memory wall</h2>
+      </div>
+
+      <div class="gallery">
+        <div class="gallery-item"><div class="placeholder-photo" data-photo="photo1.JPG">photo1.JPG</div><label>First favorite</label></div>
+        <div class="gallery-item"><div class="placeholder-photo" data-photo="photo2.JPG">photo2.JPG</div><label>Cutest smile</label></div>
+        <div class="gallery-item"><div class="placeholder-photo" data-photo="photo3.JPG">photo3.JPG</div><label>Island Trip</label></div>
+        <div class="gallery-item"><div class="placeholder-photo" data-photo="photo4.JPG">photo4.JPG</div><label>Us being us</label></div>
+        <div class="gallery-item"><div class="placeholder-photo" data-photo="photo5.JPG">photo5.JPG</div><label>Forever mood</label></div>
+        <div class="gallery-item"><div class="placeholder-photo" data-photo="photo6.JPG">photo6.JPG</div><label>Lookup</label></div>
+      </div>
+    </section>
+
+    <section id="games">
+      <div class="section-head">
+        <h2>Memory match</h2>
+        <p>Flip the cards to match each other  ar luu ma lay</p>
+      </div>
+
+      <div class="panel">
+        <div class="memory-top">
+          <div class="memory-stats">
+            <span>Moves: <b id="moves">0</b></span>
+            <span>Matches: <b id="matches">0</b>/6</span>
+          </div>
+          <button class="soft-btn" id="restartMemory" type="button">Restart</button>
+        </div>
+        <div class="memory-board" id="memoryBoard" aria-label="Anniversary memory matching game"></div>
+      </div>
+    </section>
+
+    <p class="footer-note">
+        Made it for our 2.4 monthsary bubu , you the best and will keep on loving you more and more day by day.
+    </p>
+  </main>
+
+  <script>
+    function replacePlaceholdersWithPhotos() {
+      document.querySelectorAll(".placeholder-photo").forEach((placeholder) => {
+        const fileName = placeholder.dataset.photo;
+        const image = new Image();
+        image.src = fileName;
+        image.alt = "A memory of us";
+        image.onload = () => placeholder.replaceWith(image);
+      });
+    }
+
+    const memoryItems = ["First date", "Your smile", "Late calls", "Hand holds", "Our jokes", "Forever"];
+    const memoryBoard = document.getElementById("memoryBoard");
+    const movesEl = document.getElementById("moves");
+    const matchesEl = document.getElementById("matches");
+    let firstCard = null;
+    let secondCard = null;
+    let lockBoard = false;
+    let moves = 0;
+    let matches = 0;
+
+    function shuffle(items) {
+      return [...items].sort(() => Math.random() - 0.5);
+    }
+
+    function buildMemoryGame() {
+      firstCard = null;
+      secondCard = null;
+      lockBoard = false;
+      moves = 0;
+      matches = 0;
+      movesEl.textContent = moves;
+      matchesEl.textContent = matches;
+      memoryBoard.innerHTML = "";
+
+      shuffle([...memoryItems, ...memoryItems]).forEach((item) => {
+        const card = document.createElement("button");
+        card.className = "memory-card";
+        card.type = "button";
+        card.dataset.value = item;
+        card.innerHTML = `
+          <span class="memory-face memory-front">♥</span>
+          <span class="memory-face memory-back">${item}</span>
+        `;
+        card.addEventListener("click", () => flipCard(card));
+        memoryBoard.appendChild(card);
+      });
+    }
+
+    function flipCard(card) {
+      if (lockBoard || card === firstCard || card.classList.contains("matched")) return;
+
+      card.classList.add("flipped");
+      if (!firstCard) {
+        firstCard = card;
+        return;
+      }
+
+      secondCard = card;
+      moves += 1;
+      movesEl.textContent = moves;
+
+      if (firstCard.dataset.value === secondCard.dataset.value) {
+        firstCard.classList.add("matched");
+        secondCard.classList.add("matched");
+        matches += 1;
+        matchesEl.textContent = matches;
+        resetTurn();
+        if (matches === memoryItems.length) burstHearts(24);
+        return;
+      }
+
+      lockBoard = true;
+      setTimeout(() => {
+        firstCard.classList.remove("flipped");
+        secondCard.classList.remove("flipped");
+        resetTurn();
+      }, 850);
+    }
+
+    function resetTurn() {
+      [firstCard, secondCard] = [null, null];
+      lockBoard = false;
+    }
+
+    function burstHearts(amount) {
+      for (let i = 0; i < amount; i += 1) {
+        const heart = document.createElement("span");
+        heart.className = "float-heart";
+        heart.textContent = "♥";
+        heart.style.setProperty("--x", `${Math.random() * 100}vw`);
+        heart.style.setProperty("--size", `${18 + Math.random() * 24}px`);
+        heart.style.setProperty("--dur", `${3 + Math.random() * 2.8}s`);
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 6000);
+      }
+    }
+
+    document.getElementById("restartMemory").addEventListener("click", buildMemoryGame);
+
+    replacePlaceholdersWithPhotos();
+    buildMemoryGame();
+    setInterval(() => burstHearts(1), 2200);
+  </script>
+</body>
+</html>
